@@ -1,0 +1,45 @@
+[
+    {
+        "proof_type": "Head Correctness",
+        "success": false,
+        "message": "STATE ROOT MISMATCH at block 29568537",
+        "evidence": {
+            "block_number": 29568537,
+            "ref_root": "0x39f32b2eb16ec01be9742066706a19fc2bb4cc62bb4fb23e160f1545307306f1",
+            "nut_root": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+            "ref_height": 29568537,
+            "nut_height": 29568538
+        },
+        "timestamp": 1768754613.7728415
+    },
+    {
+        "proof_type": "Execution Correctness",
+        "success": true,
+        "message": "Execution results (fee) match: 159909413",
+        "evidence": {
+            "ref_fee": 159909413,
+            "nut_fee": 159909413,
+            "ref_weight": {
+                "ref_time": 492762000,
+                "proof_size": 10779
+            },
+            "nut_weight": {
+                "ref_time": 492762000,
+                "proof_size": 10779
+            }
+        },
+        "timestamp": 1768754639.8239505
+    },
+    {
+        "proof_type": "Freshness",
+        "success": true,
+        "message": "Node is fresh. Node is -1 blocks behind (~-6s)",
+        "evidence": {
+            "ref_height": 29568546,
+            "nut_height": 29568547,
+            "estimated_lag_seconds": -6,
+            "threshold_seconds": 12
+        },
+        "timestamp": 1768754645.0469208
+    }
+]

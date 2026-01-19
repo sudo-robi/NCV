@@ -1,0 +1,77 @@
+127.0.0.1 - - [18/Jan/2026 17:42:47] "POST / HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 52914)
+Traceback (most recent call last):
+  File "/usr/lib/python3.13/socketserver.py", line 318, in _handle_request_noblock
+    self.process_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/socketserver.py", line 349, in process_request
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "/usr/lib/python3.13/http/server.py", line 447, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.13/http/server.py", line 435, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "/home/robi/Desktop/DEVPOST/saboteur.py", line 67, in do_POST
+    self.wfile.write(json.dumps(resp_json).encode())
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+127.0.0.1 - - [18/Jan/2026 17:42:56] "POST / HTTP/1.1" 200 -
+127.0.0.1 - - [18/Jan/2026 17:43:11] "POST / HTTP/1.1" 200 -
+127.0.0.1 - - [18/Jan/2026 17:43:12] "POST / HTTP/1.1" 200 -
+127.0.0.1 - - [18/Jan/2026 17:43:13] "POST / HTTP/1.1" 200 -
+127.0.0.1 - - [18/Jan/2026 17:43:16] "POST / HTTP/1.1" 200 -
+127.0.0.1 - - [18/Jan/2026 17:43:23] "POST / HTTP/1.1" 200 -
+127.0.0.1 - - [18/Jan/2026 17:43:25] "POST / HTTP/1.1" 200 -
+127.0.0.1 - - [18/Jan/2026 17:43:30] "POST / HTTP/1.1" 200 -
+127.0.0.1 - - [18/Jan/2026 17:43:30] "POST / HTTP/1.1" 200 -
+127.0.0.1 - - [18/Jan/2026 17:43:31] "POST / HTTP/1.1" 200 -
+127.0.0.1 - - [18/Jan/2026 17:43:33] "POST / HTTP/1.1" 200 -
+127.0.0.1 - - [18/Jan/2026 17:43:53] "POST / HTTP/1.1" 200 -
+127.0.0.1 - - [18/Jan/2026 17:43:53] "POST / HTTP/1.1" 200 -
+127.0.0.1 - - [18/Jan/2026 17:43:54] "POST / HTTP/1.1" 200 -
+127.0.0.1 - - [18/Jan/2026 17:43:55] "POST / HTTP/1.1" 200 -
+127.0.0.1 - - [18/Jan/2026 17:43:55] "POST / HTTP/1.1" 200 -
+127.0.0.1 - - [18/Jan/2026 17:43:56] "POST / HTTP/1.1" 200 -
+127.0.0.1 - - [18/Jan/2026 17:43:57] "POST / HTTP/1.1" 200 -
+127.0.0.1 - - [18/Jan/2026 17:43:57] "POST / HTTP/1.1" 200 -
+127.0.0.1 - - [18/Jan/2026 17:43:58] "POST / HTTP/1.1" 200 -
+127.0.0.1 - - [18/Jan/2026 17:43:59] "POST / HTTP/1.1" 200 -
+127.0.0.1 - - [18/Jan/2026 17:43:59] "POST / HTTP/1.1" 200 -
+127.0.0.1 - - [18/Jan/2026 17:44:03] "POST / HTTP/1.1" 200 -
+127.0.0.1 - - [18/Jan/2026 17:44:03] "POST / HTTP/1.1" 200 -
+127.0.0.1 - - [18/Jan/2026 17:44:04] "POST / HTTP/1.1" 200 -
+127.0.0.1 - - [18/Jan/2026 17:44:05] "POST / HTTP/1.1" 200 -
+=== NODE CORRECTNESS VERIFICATION ===
+
+--- Scenario: DORMANT ---
+1. Starting Saboteur Proxy...
+   (Priming dormant state...)
+   (Waiting 5s for node to stabilize...)
+2. Running Challenger...
+
+Challenger Output Preview:
+
+3. Cleaning up Saboteur...
+
+--- Scenario: POISONED ---
+1. Starting Saboteur Proxy...
+2. Running Challenger...
+
+Challenger Output Preview:
+
+
+✅ SUCCESS: NCV detected the POISONED node (State Root Mismatch)!
+3. Cleaning up Saboteur...

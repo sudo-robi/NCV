@@ -1,0 +1,7 @@
+nohup: ignoring input
+Starting NCV Challenger (Go) - NUT: http://localhost:9944
+panic: interface conversion: interface {} is nil, not map[string]interface {}
+
+goroutine 1 [running]:
+main.main()
+	/home/robi/Desktop/DEVPOST/challenger.go:422 +0x9eb

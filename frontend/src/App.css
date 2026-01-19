@@ -1,0 +1,205 @@
+:root {
+  --bg-dark: #020617;
+  --card-bg: rgba(30, 41, 59, 0.7);
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --accent-pass: #10b981;
+  --accent-fail: #ef4444;
+  --accent-blue: #3b82f6;
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.ncv-dashboard {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+  min-height: 100vh;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 2.5rem;
+  margin-bottom: 3rem;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin: 0;
+  background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.025em;
+}
+
+.system-status {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--accent-pass);
+  padding: 0.6rem 1.5rem;
+  border-radius: 9999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.1);
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+h2::before {
+  content: '';
+  display: block;
+  width: 4px;
+  height: 24px;
+  background: var(--accent-blue);
+  border-radius: 2px;
+}
+
+.log-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+  gap: 2rem;
+}
+
+.log-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 2rem;
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.log-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+
+.log-card.fail {
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.log-card.fail::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--accent-fail);
+}
+
+.log-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.proof-type {
+  font-weight: 800;
+  color: var(--accent-blue);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.8rem;
+}
+
+.timestamp {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+.message {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  line-height: 1.4;
+  color: var(--text-primary);
+}
+
+.evidence-bundle {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 1.25rem;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  color: #7dd3fc;
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+  max-height: 250px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.log-footer {
+  margin-top: auto;
+  padding-top: 1.5rem;
+  font-weight: 800;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-top: 1px solid var(--glass-border);
+}
+
+.fail .log-footer {
+  color: var(--accent-fail);
+}
+
+.pass .log-footer {
+  color: var(--accent-pass);
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  padding: 5rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.5;
+  }
+}
+
+.empty {
+  text-align: center;
+  padding: 4rem;
+  background: var(--card-bg);
+  border-radius: 16px;
+  border: 1px dashed var(--glass-border);
+  color: var(--text-secondary);
+}
