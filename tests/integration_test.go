@@ -1,31 +1,23 @@
-package main
+package backend
 
 import (
-	"testing"
+	"net/http"
 	"net/http/httptest"
-	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
-func TestIntegration(t *testing.T) {
-	// Create a mock server for the backend
-	mockServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if r.URL.Path == "/logs" {
-			w.WriteHeader(http.StatusOK)
-			w.Write([]byte(`[{"timestamp": "2026-01-18T12:00:00Z", "message": "Log entry 1"}]`))
-		} else {
-			w.WriteHeader(http.StatusNotFound)
-		}
-	}))
-	defer mockServer.Close()
+// Test that the /logs handler responds with 200 and JSON
+func TestLogsHandler(t *testing.T) {
+	req := httptest.NewRequest(http.MethodGet, "/logs", nil)
+	rec := httptest.NewRecorder()
 
-	// Replace the backend URL with the mock server URL
-	backendURL := mockServer.URL
+	serveLogs(rec, req)
 
-	// Simulate a frontend request to fetch logs
-	response, err := http.Get(backendURL + "/logs")
-	assert.NoError(t, err)
-	assert.Equal(t, http.StatusOK, response.StatusCode)
-
-	// Validate the response body
-	// Add more integration tests as needed
+	res := rec.Result()
+	if res.StatusCode != http.StatusOK {
+		t.Fatalf("expected 200 OK, got %d", res.StatusCode)
+	}
+	if ct := res.Header.Get("Content-Type"); ct != "application/json" {
+		t.Fatalf("expected application/json, got %s", ct)
+	}
 }

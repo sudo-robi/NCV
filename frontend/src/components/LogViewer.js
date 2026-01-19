@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './LogViewer.css';
-import { formatTimestamp } from '../App';
+import { formatTimestamp } from '../utils/time';
+import { mockLogs } from '../mockData';
 
 function LogViewer() {
   const [logs, setLogs] = useState([]);
@@ -12,13 +13,18 @@ function LogViewer() {
   const [sortOrder, setSortOrder] = useState('asc');
 
   useEffect(() => {
-    axios.get('http://localhost:8081/logs')
+    const LOG_URL = process.env.REACT_APP_LOG_SERVER_URL || 'http://localhost:8081/logs';
+    axios.get(LOG_URL)
       .then(response => {
         setLogs(response.data);
         setFilteredLogs(response.data);
       })
       .catch(error => {
         console.error('Error fetching logs:', error);
+        // Fallback to mock data if backend is unavailable
+        console.log('Using mock data for demo purposes');
+        setLogs(mockLogs);
+        setFilteredLogs(mockLogs);
       });
   }, []);
 

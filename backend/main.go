@@ -6,14 +6,25 @@ import (
 	"log"
 	"net/http"
 	"sync"
+	"time"
 
-	"/home/robi/Desktop/DEVPOST/backend/framework"
-	"/home/robi/Desktop/DEVPOST/backend/modules"
+	"ncv/backend/framework"
+	"ncv/backend/modules"
 )
+
+// LogEntry matches the frontend schema
+// proof_type, success, message, evidence (optional), timestamp (seconds)
+type LogEntry struct {
+	ProofType string      `json:"proof_type"`
+	Success   bool        `json:"success"`
+	Message   string      `json:"message"`
+	Evidence  interface{} `json:"evidence,omitempty"`
+	Timestamp int64       `json:"timestamp"`
+}
 
 var (
 	logMutex sync.Mutex
-	logs     []map[string]string
+	logs     []LogEntry
 )
 
 func main() {
@@ -33,33 +44,57 @@ func main() {
 }
 
 func initializeFramework() error {
-	// Placeholder for initializing the modular framework
 	fmt.Println("Initializing modular framework...")
 
-	// Initialize Polkadot module
 	polkadotModule := &modules.PolkadotModule{}
-
-	// Create a new challenger with the Polkadot module
 	challenger := framework.NewChallenger(polkadotModule)
 
-	// Run challenges
+	// Also run via the framework to exercise that path (prints to stdout)
 	challenger.RunChallenges()
+
+	// Run challenges and append placeholder logs that align with frontend schema
+	start := time.Now()
+	if err := polkadotModule.HeadCorrectness(); err != nil {
+		appendLog("Head Correctness", false, fmt.Sprintf("Head Correctness failed: %v", err), nil)
+	} else {
+		appendLog("Head Correctness", true, "Head Correctness check passed.", map[string]interface{}{"duration_ms": time.Since(start).Milliseconds()})
+	}
+
+	start = time.Now()
+	if err := polkadotModule.ExecutionCorrectness(); err != nil {
+		appendLog("Execution Correctness", false, fmt.Sprintf("Execution Correctness failed: %v", err), nil)
+	} else {
+		appendLog("Execution Correctness", true, "Execution Correctness check passed.", map[string]interface{}{"duration_ms": time.Since(start).Milliseconds()})
+	}
+
+	start = time.Now()
+	if err := polkadotModule.FreshnessProof(); err != nil {
+		appendLog("Freshness", false, fmt.Sprintf("Freshness Proof failed: %v", err), nil)
+	} else {
+		appendLog("Freshness", true, "Freshness Proof check passed.", map[string]interface{}{"duration_ms": time.Since(start).Milliseconds()})
+	}
 
 	return nil
 }
 
-func logResult(timestamp, message string) {
+func appendLog(proofType string, success bool, message string, evidence interface{}) {
 	logMutex.Lock()
 	defer logMutex.Unlock()
-	logs = append(logs, map[string]string{
-		"timestamp": timestamp,
-		"message":   message,
+	logs = append(logs, LogEntry{
+		ProofType: proofType,
+		Success:   success,
+		Message:   message,
+		Evidence:  evidence,
+		Timestamp: time.Now().Unix(),
 	})
 }
 
 func serveLogs(w http.ResponseWriter, r *http.Request) {
+	// Basic CORS to allow CRA dev server
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Content-Type", "application/json")
+
 	logMutex.Lock()
 	defer logMutex.Unlock()
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(logs)
+	_ = json.NewEncoder(w).Encode(logs)
 }

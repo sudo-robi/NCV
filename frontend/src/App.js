@@ -2,22 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
 import LogViewer from './components/LogViewer';
+import { mockLogs } from './mockData';
+import { formatTimestamp } from './utils/time';
 
-const LOG_URL = 'http://localhost:8081/logs';
-
-// Helper to format timestamp as Day Hour:Min:Sec
-export const formatTimestamp = (ts) => {
-  const date = new Date(ts * 1000);
-  const options = {
-    day: 'numeric',
-    month: 'short',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-    hour12: false
-  };
-  return date.toLocaleString('en-GB', options);
-};
+const LOG_URL = process.env.REACT_APP_LOG_SERVER_URL || 'http://localhost:8081/logs';
 
 function App() {
   const [logs, setLogs] = useState([]);
@@ -30,6 +18,9 @@ function App() {
         setLogs(response.data);
       } catch (error) {
         console.error('Error fetching logs:', error);
+        // Fallback to mock data if backend is unavailable (e.g., on Vercel)
+        console.log('Using mock data for demo purposes');
+        setLogs(mockLogs);
       } finally {
         setLoading(false);
       }
