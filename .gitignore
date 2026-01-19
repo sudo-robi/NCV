@@ -1,0 +1,25 @@
+# Node/React
+frontend/node_modules/
+frontend/build/
+frontend/.env
+
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Logs
+logs/
+*.log
+
+# Binaries
+*.out
+*.exe
+
+# OS/editor
+.DS_Store
+.qodo/
+
+# Archives
+*.tar.gz
+*.zip
