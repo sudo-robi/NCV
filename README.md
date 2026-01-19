@@ -1,6 +1,6 @@
 # Node Correctness Verification (NCV)
 
-## 🔴 Problem Statement and Motivation
+## Problem Statement and Motivation
 
 Blockchain nodes can fail silently, continuing to respond to RPC calls and passing basic health checks while serving stale or incorrect data. This poses significant risks, including:
 - **Data Integrity Issues**: Nodes may serve misleading or outdated data.
@@ -11,7 +11,7 @@ Blockchain nodes can fail silently, continuing to respond to RPC calls and passi
 
 ---
 
-## 🟢 Explanation of the Solution
+## Explanation of the Solution
 
 **Node Correctness Verification (NCV)** actively challenges blockchain nodes with verifiable proofs to ensure correctness, execution accuracy, and freshness. The system:
 1. **Challenges Nodes**: Sends predefined challenges to the node under test (NUT).
@@ -26,7 +26,7 @@ Blockchain nodes can fail silently, continuing to respond to RPC calls and passi
 
 ---
 
-## 🛠 Technologies, Tools, and Frameworks Used
+## Technologies, Tools, and Frameworks Used
 
 - **Backend**: Go (Golang) for high-performance proof logic and modular design.
 - **Frontend**: React for the log viewer and real-time dashboard.
@@ -38,7 +38,7 @@ Blockchain nodes can fail silently, continuing to respond to RPC calls and passi
 
 ---
 
-## 👤 Team Member Roles and Contributions
+## Team Member Roles and Contributions
 
 This project was developed by a **solo developer**. Contributions include:
 - **Backend Development**: Designed and implemented modular proof logic, advanced proofs, and multi-chain support.
@@ -48,7 +48,7 @@ This project was developed by a **solo developer**. Contributions include:
 
 ---
 
-## 🔮 Future Scope and Roadmap
+## Future Scope and Roadmap
 
 ### Short-Term Goals
 - **Multi-Chain Support**: Extend NCV to support Ethereum, Solana, and other blockchains.
@@ -63,13 +63,13 @@ This project was developed by a **solo developer**. Contributions include:
 - **Decentralized Proofs**: Enable decentralized verification using light clients and oracles.
 - **Community Adoption**: Promote NCV as a standard for node health verification across multiple blockchains.
 
-## 🚀 Core Features (The Hackathon MVP)
+## Core Features (The Hackathon MVP)
 Implemented for **Polkadot**:
 1. **Head Correctness**: Compares `state_root` at a specific block height against a trusted reference.
 2. **Execution Correctness**: Simulates a transaction (Balance transfer) and verifies the node computes the correct result (Weight/Fees).
 3. **Freshness Proof**: Monitors block arrival times to detect silent stalling.
 
-## 🔍 How It Works
+## How It Works
 
 The NCV system operates by sending active challenges to the node under test (NUT) and comparing its responses to trusted reference nodes. Each challenge is designed to detect specific failure modes:
 
@@ -79,7 +79,7 @@ The NCV system operates by sending active challenges to the node under test (NUT
 
 Each proof generates a JSON evidence log, which can be used for debugging or slashing.
 
-## 🧪 Testing
+## Testing
 
 ### Unit Tests
 Unit tests validate the core proof logic, ensuring each function behaves as expected. Tests are located in the `tests/` directory and can be run using:
@@ -96,7 +96,7 @@ go test ./tests/integration_test.go
 ### Failure Simulation
 The `demo.py` script simulates node failures using the `saboteur.py` proxy. This ensures the system can detect and respond to silent failures.
 
-## 🌟 Originality and Comparison with Existing Solutions
+## Originality and Comparison with Existing Solutions
 
 ### Originality
 - **Active Verification**: Unlike traditional monitoring tools that passively observe metrics like CPU usage or peer count, NCV actively challenges nodes with verifiable proofs.
@@ -114,7 +114,7 @@ The `demo.py` script simulates node failures using the `saboteur.py` proxy. This
   - Verify blockchain data but lack the ability to challenge full nodes.
   - NCV complements light clients by ensuring full node correctness.
 
-## 🛣 Roadmap
+## Roadmap
 
 ### Short-Term Goals
 - **Multi-Chain Support**: Extend NCV to support Ethereum, Solana, and other blockchains.
@@ -129,7 +129,7 @@ The `demo.py` script simulates node failures using the `saboteur.py` proxy. This
 - **Decentralized Proofs**: Enable decentralized verification using light clients and oracles.
 - **Community Adoption**: Promote NCV as a standard for node health verification across multiple blockchains.
 
-## 🌍 Real-World Examples
+## Real-World Examples
 
 ### Example 1: Polkadot Validator
 A Polkadot validator uses NCV to ensure their node is always in sync and serving correct data. During a network partition, NCV detects a state root mismatch and alerts the operator, preventing potential slashing.
@@ -140,7 +140,7 @@ A blockchain explorer integrates NCV to verify the correctness of its backend no
 ### Example 3: Enterprise Blockchain
 An enterprise blockchain network adopts NCV to monitor its nodes. NCV's JSON evidence logs provide a clear audit trail for compliance and debugging.
 
-## 🔮 Future Work
+## Future Work
 
 - **Multi-Chain Support**: Extend the framework to support other blockchains like Ethereum and Solana.
 - **Advanced Proofs**: Add new challenges for runtime verification and trustless storage.
@@ -166,14 +166,14 @@ An enterprise blockchain network adopts NCV to monitor its nodes. NCV's JSON evi
 4. **Validate Results**:
    Ensure the challenger detects the injected failures and generates appropriate proofs.
 
-## 🛠 Project Structure
+## Project Structure
 - `challenger.py`: The main service that runs the challenge cycles.
 - `proofs/`: Modular proof implementations.
 - `saboteur.py`: A malicious proxy used for demoing "Silent Failure" detection.
 - `demo.py`: Integrated script to run the full verification lifecycle.
 - `logs/`: Evidence logs and JSON proofs.
 
-## ⚙️ Setup and Run Instructions
+## Setup and Run Instructions
 
 ### Prerequisites
 - **Python 3**: Ensure Python 3 is installed on your system.
@@ -252,7 +252,7 @@ python demo.py
 
 **Watch the Challenger detect the corruption instantly while the node process remains "Online".**
 
-## 🏆 Why this Wins
+## Why this Wins
 - **Active Verification**: Most monitoring is passive; PoH is proactive.
 - **Evidence-Based**: Every failure generates a JSON proof bundle for slaving/slashing evidence.
 - **Scalable**: Framework designed to support multiple chains and failure modes.
